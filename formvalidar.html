@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bulma.css">
+    <link rel="stylesheet" href="formvalidar.css">
+    <style>
+        .form-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        }
+    </style>
+    <title>Formulario de Validación</title>
+
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+         
+            <div class="form-box">
+                <h1 class="title">Formulario de Reservas</h1>
+                <form action="validacion.php" method="POST">
+                
+                      <!-- Campos del formulario -->
+                    <div class="field">
+                        <label class="label">Usuario</label>
+                        <div class="control">
+                            <div class="select">
+                                <select name="usuario" id="usuario" required>
+                                    <!-- Opciones se llenarán dinámicamente -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Email Docente</label>
+                        <div class="control">
+                            <input class="input" type="email" name="email_docente" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Nombre del Grupo</label>
+                        <div class="control">
+                            <input class="input" type="text" name="nombre_grupo" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Jornada</label>
+                        <div class="control">
+                            <div class="select">
+                                <select name="jornada" required>
+                                    <option value="Mañana">Mañana</option>
+                                    <option value="Tarde">Tarde</option>
+                                    <option value="Noche">Noche</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Día de la Semana</label>
+                        <div class="control">
+                            <div class="select">
+                                <select name="dia_semana" required>
+                                    <option value="Lunes">Lunes</option>
+                                    <option value="Martes">Martes</option>
+                                    <option value="Miércoles">Miércoles</option>
+                                    <option value="Jueves">Jueves</option>
+                                    <option value="Viernes">Viernes</option>
+                                    <option value="Sábado">Sábado</option>
+                                    <option value="Domingo">Domingo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Hora</label>
+                        <div class="control">
+                            <div class="select">
+                                <select name="hora" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Espacio</label>
+                        <div class="control">
+                            <div class="select">
+                                <select name="espacio" id="espacio" required>
+                                    <!-- Opciones se llenarán dinámicamente -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+              
+                    <div class="field">
+                        <label class="label">Recurso</label>
+                        <div class="control">
+                            <input class="input" type="text" name="recurso" required>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <button class="button is-primary is-link" type="submit">Reservar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('obtener_usuarios.php')
+                .then(response => response.json())
+                .then(data => {
+                    const usuarioSelect = document.getElementById('usuario');
+                    data.forEach(usuario => {
+                        const option = document.createElement('option');
+                        option.textContent = usuario.UsuarioID + "-" + usuario.Nombre;
+                        usuarioSelect.appendChild(option);
+                    });
+                });
+    
+            fetch('obtener_espacios.php')
+                .then(response => response.json())
+                .then(data => {
+                    const espacioSelect = document.getElementById('espacio');
+                    data.forEach(espacio => {
+                        const option = document.createElement('option');
+                        option.textContent = espacio.NombreEspacio;
+                        espacioSelect.appendChild(option);
+                    });
+                });
+    
+            (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+                const $notification = $delete.parentNode;
+    
+                $delete.addEventListener('click', () => {
+                    $notification.parentNode.removeChild($notification);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+
+
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.section {
+    padding: 2rem 1.5rem;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.box {
+    padding: 2rem;
+}
+
+.field {
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.input,
+.select select {
+    width: 100%;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+}
+
+.button.is-danger {
+    background-color: #ff3860;
+    border-color: #ff3860;
+    color: #fff;
+}
+
+.button.is-danger:hover {
+    background-color: #ff1f4b;
+    border-color: #ff1f4b;
+}
+
+.field.is-grouped.is-grouped-centered {
+    justify-content: center;
+}
+
+
+.form-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+}
+
