@@ -12,87 +12,59 @@
             border-radius: 5px;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
         }
+  
     </style>
     <title>Formulario de Validación</title>
-
 </head>
 
 <body>
     <section class="section">
         <div class="container">
-         
             <div class="form-box">
                 <h1 class="title">Formulario de Reservas</h1>
                 <form action="validacion.php" method="POST">
-                
-                      <!-- Campos del formulario -->
-                    <div class="field">
-                        <label class="label">Usuario</label>
-                        <div class="control">
-                            <div class="select">
-                                <select name="usuario" id="usuario" required>
-                                    <!-- Opciones se llenarán dinámicamente -->
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Campos del formulario -->
+                    
+
                     <div class="field">
                         <label class="label">Email Docente</label>
-                        <div class="control">
-                            <input class="input" type="email" name="email_docente" required>
+                        <div id="reducir" class="control">
+                            <input class="input" type="email" name="email_docente" placeholder="correo@colsantander.edu.co" required>
                         </div>
                     </div>
                     <div class="field">
-                        <label class="label">Nombre del Grupo</label>
+                        <label class="label">Nombre del grupo</label>
                         <div class="control">
-                            <input class="input" type="text" name="nombre_grupo" required>
+                            <input class="input" type="text" name="nombre_grupo" placeholder="Curso" required>
                         </div>
                     </div>
+
+                  
+                    <div class="field">
+                        <label class="label">Fecha de Reserva</label>
+                        <div class="control">
+                            <input class="input" type="date" name="fecha_reserva" required>
+                        </div>
                     <div class="field">
                         <label class="label">Jornada</label>
-                        <div class="control">
-                            <div class="select">
-                                <select name="jornada" required>
-                                    <option value="Mañana">Mañana</option>
-                                    <option value="Tarde">Tarde</option>
-                                    <option value="Noche">Noche</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                       
+                       
                     <div class="field">
-                        <label class="label">Día de la Semana</label>
+                        <label class="label">Hora Inicio</label>
                         <div class="control">
-                            <div class="select">
-                                <select name="dia_semana" required>
-                                    <option value="Lunes">Lunes</option>
-                                    <option value="Martes">Martes</option>
-                                    <option value="Miércoles">Miércoles</option>
-                                    <option value="Jueves">Jueves</option>
-                                    <option value="Viernes">Viernes</option>
-                                    <option value="Sábado">Sábado</option>
-                                    <option value="Domingo">Domingo</option>
-                                </select>
-                            </div>
+                            <input class="input" type="time" name="hora_inicio" required>
                         </div>
                     </div>
 
                     <div class="field">
-                        <label class="label">Hora</label>
+                        <label class="label">Hora Fin</label>
                         <div class="control">
-                            <div class="select">
-                                <select name="hora" required>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
+                            <input class="input" type="time" name="hora_fin" required>
                         </div>
                     </div>
+
+
                     <div class="field">
                         <label class="label">Espacio</label>
                         <div class="control">
@@ -103,14 +75,17 @@
                             </div>
                         </div>
                     </div>
-                    
-              
                     <div class="field">
                         <label class="label">Recurso</label>
                         <div class="control">
-                            <input class="input" type="text" name="recurso" required>
+                            <div class="select">
+                                <select name="recurso" id="recurso" required>
+                                    <!-- Opciones se llenarán dinámicamente -->
+                                </select>
+                            </div>
                         </div>
                     </div>
+
                     <div class="control">
                         <button class="button is-primary is-link" type="submit">Reservar</button>
                     </div>
@@ -130,7 +105,7 @@
                         usuarioSelect.appendChild(option);
                     });
                 });
-    
+
             fetch('obtener_espacios.php')
                 .then(response => response.json())
                 .then(data => {
@@ -141,10 +116,24 @@
                         espacioSelect.appendChild(option);
                     });
                 });
-    
+
+
+            fetch('obtener_recursos.php')
+                .then(response => response.json())
+                .then(data => {
+                    const espacioSelect = document.getElementById('recurso');
+                    data.forEach( recurso => {
+                        const option = document.createElement('option');
+                        option.textContent = recurso.NombreRecursos;
+                        espacioSelect.appendChild(option);
+                    });
+                });
+
+
+
             (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
                 const $notification = $delete.parentNode;
-    
+
                 $delete.addEventListener('click', () => {
                     $notification.parentNode.removeChild($notification);
                 });
