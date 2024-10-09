@@ -5,25 +5,17 @@ include 'conexion.php';
 // Consulta SQL para obtener todos los registros de la tabla
 $sql = "
     SELECT 
-        Reservas.FechaCreacion, 
-        Reservas.dia_semana, 
-        Reservas.Hora, 
-        Usuarios.Nombre, 
+         
+        Reservas.email_docente, 
         Reservas.nombre_grupo, 
-        Espacios.NombreEspacio, 
-        Recursos.NombreRecursos
-        
-
-
+        Reservas.fecha_reserva,
+        Reservas.hora_inicio,
+        Reservas.hora_fin,
+        Reservas.Espacio,
+        Reservas.Recurso
 
     FROM 
         Reservas
-    INNER JOIN 
-        Usuarios ON Reservas.UsuarioID = Usuarios.UsuarioID
-    INNER JOIN 
-        Espacios ON Reservas.EspacioID = Espacios.EspacioID
-    INNER JOIN 
-        Recursos ON Reservas.RecursoID = Recursos.ID
 ";
 
 $result = $conn->query($sql);
@@ -31,12 +23,14 @@ $result = $conn->query($sql);
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bulma.css">
     <title>Lista de Reservas</title>
 </head>
+
 <body>
     <section class="section">
         <div class="container">
@@ -48,11 +42,11 @@ $result = $conn->query($sql);
                 echo "<table class='table is-striped is-hoverable'>
                         <thead>
                             <tr>
-                                <th>Fecha de reserva</th>
-                                <th>Dia reservado</th>
-                                <th>Hora</th>
-                                <th>Docente</th>
-                                <th>Grupo</th>
+                                <th>Usuario</th>
+                                <th>Curso</th>
+                                <th>Fecha</th>
+                                <th>Hora de inicio</th>
+                                <th>Hora de Finalización</th>
                                 <th>Espacio</th>
                                 <th>Recursos adicionales</th>
 
@@ -63,13 +57,13 @@ $result = $conn->query($sql);
                 // Salida de datos de cada fila
                 while($row = $result->fetch_assoc()) {
                     echo "<tr>
-                            <td>" . htmlspecialchars($row["FechaCreacion"]). "</td>  
-                             <td>" . htmlspecialchars($row["dia_semana"]). "</td>                 
-                             <td>" . htmlspecialchars($row["Hora"]). "</td>
-                            <td>" . htmlspecialchars($row["Nombre"]). "</td>
-                            <td>" . htmlspecialchars($row["nombre_grupo"]). "</td>    
-                            <td>" . htmlspecialchars($row["NombreEspacio"]). "</td> 
-                            <td>" . htmlspecialchars($row["NombreRecursos"]). "</td> 
+                            <td>" . htmlspecialchars($row["email_docente"]). "</td>  
+                             <td>" . htmlspecialchars($row["nombre_grupo"]). "</td>                 
+                             <td>" . htmlspecialchars($row["fecha_reserva"]). "</td>
+                            <td>" . htmlspecialchars($row["hora_inicio"]). "</td>
+                            <td>" . htmlspecialchars($row["hora_fin"]). "</td>    
+                            <td>" . htmlspecialchars($row["Espacio"]). "</td> 
+                            <td>" . htmlspecialchars($row["Recurso"]). "</td> 
                           
                            
                           </tr>";
@@ -85,4 +79,5 @@ $result = $conn->query($sql);
         </div>
     </section>
 </body>
+
 </html>
